@@ -7,15 +7,14 @@ export function getChangeDiagram( pressure: number ) {
         
         const Temp = calcTemperature( pressure );
     
-        if ( Math.round( Temp ) <= 30 ) return null;            
+        const roundTemp = Math.round( Temp );
     
         const VL = calcVL( pressure );
         const VV = calcVV( pressure );
     
         const Result = {
-            // 'temperatura': Math.round( Temp ),
-            'specific_volume_liquid': parseFloat( VL.toFixed( 5 ) ),
-            'specific_volume_vapor': parseFloat( VV.toFixed( 5 ) )
+            'specific_volume_liquid': ( roundTemp <= 30 ) ? null : parseFloat( VL.toFixed( 5 ) ),
+            'specific_volume_vapor': ( roundTemp <= 30 ) ? null : parseFloat( VV.toFixed( 5 ) )
         };
     
         return Result;
